@@ -1,5 +1,4 @@
-﻿using Microsoft.Win32;
-using EscalerasYSerpientes.Properties;
+﻿using EscalerasYSerpientes.Properties;
 using System;
 using System.Collections;
 using System.Collections.Generic;

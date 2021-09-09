@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EscalerasYSerpientes
 {
-    public abstract class Entidad
+    public abstract class Entidad : IDibujable
     {
         public Color colorLinea;
         public Color colorCabeza;

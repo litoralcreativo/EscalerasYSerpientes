@@ -18,7 +18,7 @@ namespace EscalerasYSerpientes
         {
             for (int i = 0; i < escaleras; i++)
             {
-                int inicioIndex = random.Next(1, 100 - 12);
+                int inicioIndex = random.Next(1, 100 - 12); // 30
                 int altura = random.Next(3, 13);
                 int finIndex = inicioIndex + altura;
 
@@ -35,14 +35,14 @@ namespace EscalerasYSerpientes
 
                 Escalera esc = new Escalera(inicio, fin);
                 entidades.Add(esc);
-                inicio.elemento = esc;
+                inicio.entidad = esc;
                 inicio.EsInicio = true;
             }
 
             for (int i = 0; i < serpientes; i++)
             {
-                int inicioIndex = random.Next(19, 100);
-                int altura = random.Next(5, 19);
+                int inicioIndex = random.Next(19, 99); // 19 a 98
+                int altura = random.Next(5, 19); // 5 a 18
                 int finIndex = inicioIndex - altura;
 
                 while (casilleros[inicioIndex].TieneElemento || casilleros[finIndex].TieneElemento)
@@ -59,7 +59,7 @@ namespace EscalerasYSerpientes
 
                 Serpiente ser = new Serpiente(inicio, fin);
                 entidades.Add(ser);
-                inicio.elemento = ser;
+                inicio.entidad = ser;
                 inicio.EsInicio = true;
             }
         }
@@ -108,11 +108,11 @@ namespace EscalerasYSerpientes
                         string ent = "";
                         if (((Jugador)jugadores[i]).anterior.EsInicio)
                         {
-                            if (((Jugador)jugadores[i]).anterior.elemento is Serpiente)
+                            if (((Jugador)jugadores[i]).anterior.entidad is Serpiente)
                             {
                                 ent = "Serpiente";
                             }
-                            else if(((Jugador)jugadores[i]).anterior.elemento is Escalera)
+                            else if(((Jugador)jugadores[i]).anterior.entidad is Escalera)
                             {
                                 ent = "Escalera";
                             }
@@ -154,11 +154,11 @@ namespace EscalerasYSerpientes
                 string ent = "";
                 if (((Jugador)jugadores[i]).anterior.EsInicio)
                 {
-                    if (((Jugador)jugadores[i]).anterior.elemento is Serpiente)
+                    if (((Jugador)jugadores[i]).anterior.entidad is Serpiente)
                     {
                         ent = "Serpiente";
                     }
-                    else if (((Jugador)jugadores[i]).anterior.elemento is Escalera)
+                    else if (((Jugador)jugadores[i]).anterior.entidad is Escalera)
                     {
                         ent = "Escalera";
                     }
@@ -175,10 +175,10 @@ namespace EscalerasYSerpientes
         {
             base.Play();
             Jugador jugador = (Jugador)jugadores[turno];
-            if (jugador.actual.EsInicio)
+            if (jugador.actual.EsInicio) // = hay una entidad en el casillero y es base
             {
                 //jugador.anterior = jugador.actual;
-                jugador.Mover(jugador.siguiente.elemento.final);
+                jugador.Mover(jugador.actual.entidad.final);
                 if (!esSimulacion) Draw();
             }
         }

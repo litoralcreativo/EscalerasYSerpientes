@@ -289,7 +289,7 @@ namespace EscalerasYSerpientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1098, 657);
+            this.ClientSize = new System.Drawing.Size(1098, 627);
             this.Controls.Add(this.btnSimular);
             this.Controls.Add(this.lbRegistro);
             this.Controls.Add(this.groupBox2);

@@ -177,5 +177,6 @@ namespace EscalerasYSerpientes
 
         public abstract void SimularJuego();
         public abstract void SimularRonda(int girosDelDado, Panel[] panelesDeDados);
+
     }
 }

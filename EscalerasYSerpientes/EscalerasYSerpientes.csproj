@@ -67,6 +67,7 @@
     <Compile Include="FormElegirJugadores.Designer.cs">
       <DependentUpon>FormElegirJugadores.cs</DependentUpon>
     </Compile>
+    <Compile Include="IDibujable.cs" />
     <Compile Include="Jugador.cs" />
     <Compile Include="Nivel1.cs" />
     <Compile Include="Nivel2.cs" />

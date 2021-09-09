@@ -32,6 +32,7 @@ namespace EscalerasYSerpientes
 
             g = panelGraficos.CreateGraphics();
             g.SmoothingMode = SmoothingMode.AntiAlias;
+
             FormElegirJugadores ej = new FormElegirJugadores();
             int virtuales = 1;
             if (ej.ShowDialog() == DialogResult.OK)
@@ -93,12 +94,16 @@ namespace EscalerasYSerpientes
 
             }
             tablero.graficos = g;
+
             for (int i = 0; i < jugadores.Length; i++)
             {
                 tablero.AgregarJugador(jugadores[i]);
             }
+            
             tablero.Reset();
+            
             lbRegistro.Items.Clear();
+            
             if (!simulacion)
             {
                 btnSimular.Enabled = false;

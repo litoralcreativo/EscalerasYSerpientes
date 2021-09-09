@@ -7,19 +7,20 @@ using System.Threading.Tasks;
 
 namespace EscalerasYSerpientes
 {
-    public class Jugador
+    public class Jugador : IDibujable
     {
         public string nombre;
         Color color;
         public Casillero anterior;
         public Casillero actual;
         public Casillero siguiente;
-        public Point offset;
+        public Point offset; // provisoria
         private Color main;
         private Color second;
         public bool Ganador { get; set; }
         public int PartidosGanados { get; set; }
         public bool bloqueado = false;
+        public bool muerto = false;
 
         public Jugador(string nombre, int offsetX, int offsetY)
         {

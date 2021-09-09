@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EscalerasYSerpientes
 {
-    public class Casillero
+    public class Casillero : IDibujable
     {
         public int X { get; private set; }
         public int Y { get; private set; }
@@ -17,7 +17,7 @@ namespace EscalerasYSerpientes
         public bool TieneElemento { get; set; }
         public bool EsInicio { get; set; }
 
-        public Entidad elemento;
+        public Entidad entidad;
 
         public Casillero(int x, int y, int size, int nro)
         {

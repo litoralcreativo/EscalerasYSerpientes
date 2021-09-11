@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace EscalerasYSerpientes
 {
@@ -21,6 +22,7 @@ namespace EscalerasYSerpientes
         public int PartidosGanados { get; set; }
         public bool bloqueado = false;
         public bool muerto = false;
+        public Panel panelDado;
 
         public Jugador(string nombre, int offsetX, int offsetY)
         {
@@ -29,6 +31,15 @@ namespace EscalerasYSerpientes
             offset = new Point(offsetX, offsetY);
             main = Color.CadetBlue;
             second = Color.Blue;
+        }
+        public Jugador(string nombre, int offsetX, int offsetY, Panel dado)
+        {
+            this.nombre = nombre;
+            color = Color.Blue;
+            offset = new Point(offsetX, offsetY);
+            main = Color.CadetBlue;
+            second = Color.Blue;
+            panelDado = dado;
         }
 
         public void Mover(Casillero hacia)
@@ -51,9 +62,9 @@ namespace EscalerasYSerpientes
         public void Draw(Graphics g)
         {
             Font font = new Font("Arial", 7, FontStyle.Bold);
-            Point pf = new Point(actual.X+offset.X+2, actual.Y+offset.Y+15);
-            g.FillEllipse(new SolidBrush(main), pf.X, pf.Y, 12, 12);
-            g.DrawString(nombre, font, new SolidBrush(second), pf.X+3, pf.Y+1);
+            Point pf = new Point(actual.X+offset.X, actual.Y+offset.Y+13);
+            g.FillEllipse(new SolidBrush(main), pf.X, pf.Y+3, 5, 5);
+            g.DrawString(nombre, font, new SolidBrush(second), pf.X+5, pf.Y);
         }
     }
 }

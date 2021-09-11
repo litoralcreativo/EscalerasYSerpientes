@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace EscalerasYSerpientes
 {
-    class Nivel2 : Tablero
+    class Nivel2 : Nivel1
     {
         public Nivel2(int width, int height, int jugadores) : base(width, height, jugadores)
         {
@@ -63,125 +63,47 @@ namespace EscalerasYSerpientes
                 inicio.EsInicio = true;
             }
         }
-        
-        public override void SimularJuego()
+
+        public override void Jugar()
         {
-            bool ganador = false;
-            int ganadorIndex = -1;
-            animacionDelay = 0;
-            animacionMover = false;
-
-            string nombre = "";         // nombre del jugador
-            int casInicial = 0;         // casillero inicial
-            int casFinal = 0;           // casillero final
-            bool penalizado = false;    // si fue penalizado
-
-            while (!ganador)            // mientras no tengamos ganador, simular
+            seises = 0;
+            Roll();
+            if (!CheckBloqueo())
             {
-                int i = 0;
-                AñadirSeparador();
-                ronda++;
-                while (i < jugadores.Length && !ganador)
+                Mover();
+                if (!CheckCasillero())
                 {
-                    nombre = ((Jugador)jugadores[i]).nombre;
-                    nombre = nombre == "J" ? "HUMAN" : ("COM " + nombre);
-                    casInicial = ((Jugador)jugadores[i]).actual.NroCasillero;
-                    penalizado = ((Jugador)jugadores[i]).bloqueado;
-                    turno = i;
-                    dado = random.Next(1, 7);
-                    if (!penalizado || dado == 6)
-                    {
-                        ((Jugador)jugadores[i]).bloqueado = false;
-                        Play();
-                    }
-                    casFinal = ((Jugador)jugadores[i]).actual.NroCasillero;
-                    AñadirRegistro(nombre, dado, casInicial, casFinal);
-                    ganador = ((Jugador)jugadores[i]).Ganador; // ver si tenemos ganador
-                    while (dado == 6 && !penalizado && !ganador) // jugar otra vez en caso de sacar 6
-                    {
-                        casInicial = ((Jugador)jugadores[i]).actual.NroCasillero;
-                        dado = random.Next(1, 7);
-                        Play();
-                        casFinal = ((Jugador)jugadores[i]).actual.NroCasillero;
-                        ganador = ((Jugador)jugadores[i]).Ganador; // ver si tenemos ganador
-                        
-                        string ent = "";
-                        if (((Jugador)jugadores[i]).anterior.EsInicio)
-                        {
-                            if (((Jugador)jugadores[i]).anterior.entidad is Serpiente)
-                            {
-                                ent = "Serpiente";
-                            }
-                            else if(((Jugador)jugadores[i]).anterior.entidad is Escalera)
-                            {
-                                ent = "Escalera";
-                            }
-                        }
-                        AñadirRegistro(nombre, dado, casInicial, casFinal, ent);
-                    }
-
-                    if (ganador) ganadorIndex = i;
-                    i++;
+                    CheckDado();
                 }
             }
-            if (esSimulacion) Draw();
-            ((Jugador)jugadores[ganadorIndex]).PartidosGanados++;
         }
-        public override void SimularRonda(int num, Panel[] panels)
+
+        public override void CheckDado()
         {
-            bool ganador = false;
-            int ganadorIndex = -1;
-
-            string nombre = "";
-            int casInicial = 0;
-            int casFinal = 0;
-
-            int i = 0;
-            AñadirSeparador();
-            ronda++;
-            while (i < jugadores.Length && !ganador)
+            Jugador jugador = jugadores[turno];
+            if (dado == 6)
             {
-                nombre = ((Jugador)jugadores[i]).nombre;
-                nombre = nombre == "J" ? "HUMAN" : ("COM " + nombre);
-                
-                casInicial = ((Jugador)jugadores[i]).actual.NroCasillero;
-                turno = i;
-                Roll(num, panels[i]);
-                Play();
-                casFinal = ((Jugador)jugadores[i]).actual.NroCasillero;
-                ganador = ((Jugador)jugadores[i]).Ganador; // ver si tenemos ganador
-                
-                string ent = "";
-                if (((Jugador)jugadores[i]).anterior.EsInicio)
+                seises++;
+                if (seises < 3)
                 {
-                    if (((Jugador)jugadores[i]).anterior.entidad is Serpiente)
+                    Roll();
+                    Mover();
+                    if (!CheckCasillero())
                     {
-                        ent = "Serpiente";
-                    }
-                    else if (((Jugador)jugadores[i]).anterior.entidad is Escalera)
-                    {
-                        ent = "Escalera";
+                        CheckDado();
                     }
                 }
-                AñadirRegistro(nombre, dado, casInicial, casFinal, ent);
-
-                if (ganador) ganadorIndex = i;
-                i++;
-            }
-            if (ganador) ((Jugador)jugadores[ganadorIndex]).PartidosGanados++;
-        }
-
-        public override void Play()
-        {
-            base.Play();
-            Jugador jugador = (Jugador)jugadores[turno];
-            if (jugador.actual.EsInicio) // = hay una entidad en el casillero y es base
-            {
-                //jugador.anterior = jugador.actual;
-                jugador.Mover(jugador.actual.entidad.final);
-                if (!esSimulacion) Draw();
+                else
+                {
+                    jugador.bloqueado = true;
+                    casInicial = jugadores[turno].actual.NroCasillero;
+                    jugador.Mover(casilleros[0]);
+                    casFinal = jugador.actual.NroCasillero;
+                    AñadirRegistro(jugador.nombre, dado, casInicial, casFinal);
+                }
             }
         }
+
         public override void Draw()
         {
             base.Draw();
@@ -190,6 +112,16 @@ namespace EscalerasYSerpientes
                 ((Entidad)elemento).Draw(graficos);
             }
         }
-
+        
+        public bool CheckCasillero()
+        {
+            Jugador jugador = jugadores[turno];
+            if (jugador.actual.EsInicio)
+            {
+                jugador.Mover(jugador.actual.entidad.final);
+                if (!esSimulacion) Draw();
+            }
+            return jugador.actual.EsInicio;
+        }
     }
 }

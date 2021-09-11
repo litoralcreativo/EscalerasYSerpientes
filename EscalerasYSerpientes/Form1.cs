@@ -42,12 +42,13 @@ namespace EscalerasYSerpientes
 
             // crear jugadores para AGREGARLOS
             jugadores = new Jugador[virtuales + 1];
-            Jugador humano = new Jugador("J", 0, 0);
+            Panel[] dados = { panelDado1, panelDado2, panelDado3, panelDado4 };
+            Jugador humano = new Jugador("HUMAN", 10, 0, dados[0]);
             jugadores[0] = humano;
             for (int i = 1; i <= virtuales; i++)
             {
                 
-                jugadores[i] = new Jugador(i.ToString(), 12 * i, 0); ;
+                jugadores[i] = new Jugador("COM "+i.ToString(), 10, 10 * i, dados[i]); ;
                 jugadores[i].SetMainColor(Color.Red);
                 jugadores[i].SetSecond(Color.DarkRed);
             }
@@ -109,7 +110,7 @@ namespace EscalerasYSerpientes
                 btnSimular.Enabled = false;
                 btnMover.Enabled = true;
                 tablero.animacionMover = true;
-                tablero.animacionDelay = 200;
+                tablero.animacionDelay = 100;
                 tablero.esSimulacion = false;
             }
             else
@@ -127,7 +128,7 @@ namespace EscalerasYSerpientes
         {
             btnMover.Enabled = false;
             Panel[] p = { panelDado1, panelDado2, panelDado3, panelDado4 };
-            tablero.SimularRonda(5, p);
+            tablero.SimularRonda();
             btnMover.Enabled = true;
             lbRegistro.Items.Clear();
             foreach (object item in tablero.registro)

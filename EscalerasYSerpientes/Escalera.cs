@@ -13,8 +13,8 @@ namespace EscalerasYSerpientes
         {
             base.inicio = caveza;
             base.final = cola;
-            base.colorCabeza = Color.DarkGreen;
-            base.colorLinea = Color.Green;
+            base.colorCabeza = Color.LightGreen;
+            base.colorLinea = Color.LightGreen;
             base.grosor = 3;
         }
     }

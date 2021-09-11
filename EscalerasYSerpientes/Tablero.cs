@@ -25,6 +25,8 @@ namespace EscalerasYSerpientes
         public bool animacionMover = false;
         public bool esSimulacion = false;
         public int ronda = 1;
+        public bool ganador = false;
+        protected int vueltaDados = 5;
 
         public Tablero(int width, int height, int jugadores)
         {
@@ -99,66 +101,87 @@ namespace EscalerasYSerpientes
             registro.Add(log);
         }
         
-
-        public void Roll(int num, Panel pnlDado)
+        public void Roll()
         {
-            for (int i = 0; i < num; i++)
+            if (animacionMover)
             {
-                dado = random.Next(1, 7);
-                switch (dado)
+                Panel pnlDado = jugadores[turno].panelDado;
+                if (pnlDado != null)
                 {
-                    case 1:
-                        pnlDado.BackgroundImage = Resources._1;
-                        break;
-                    case 2:
-                        pnlDado.BackgroundImage = Resources._2;
-                        break;
-                    case 3:
-                        pnlDado.BackgroundImage = Resources._3;
-                        break;
-                    case 4:
-                        pnlDado.BackgroundImage = Resources._4;
-                        break;
-                    case 5:
-                        pnlDado.BackgroundImage = Resources._5;
-                        break;
-                    case 6:
-                        pnlDado.BackgroundImage = Resources._6;
-                        break;
-                }
-                pnlDado.Refresh();
-                Thread.Sleep(100);
-            }
-        }
-        public virtual void Play()
-        {
-            Jugador jugador = (Jugador)jugadores[turno];
-            if (jugador.actual.NroCasillero + dado < 100)
-            {
-                int actual = jugador.actual.NroCasillero;
-                Casillero cas = casilleros[actual - 1 + dado];
-                if (animacionMover)
-                {
-                    for (int i = 1; i <= dado; i++)
+                    for (int i = 0; i < vueltaDados; i++)
                     {
-                        cas = casilleros[actual - 1 + i];
-                        //jugador.anterior = jugador.actual;
-                        jugador.Mover(cas);
-                        if (!esSimulacion) Draw();
+                        dado = random.Next(1, 7);
+                        switch (dado)
+                        {
+                            case 1:
+                                pnlDado.BackgroundImage = Resources._1;
+                                break;
+                            case 2:
+                                pnlDado.BackgroundImage = Resources._2;
+                                break;
+                            case 3:
+                                pnlDado.BackgroundImage = Resources._3;
+                                break;
+                            case 4:
+                                pnlDado.BackgroundImage = Resources._4;
+                                break;
+                            case 5:
+                                pnlDado.BackgroundImage = Resources._5;
+                                break;
+                            case 6:
+                                pnlDado.BackgroundImage = Resources._6;
+                                break;
+                        }
+                        pnlDado.Refresh();
+                        Thread.Sleep(100);
                     }
                 }
                 else
                 {
-                    //jugador.anterior = jugador.actual;
-                    jugador.Mover(cas);
+                    dado = random.Next(1, 7);
                 }
-            } else
+            } 
+            else
             {
-                //jugador.anterior = jugador.actual;
-                jugador.Mover(casilleros[99]);
-                jugador.Ganador = true;
+                dado = random.Next(1, 7);
             }
         }
+        
+        public virtual void Mover()
+        {
+            int casInicial = jugadores[turno].actual.NroCasillero;
+            Jugador jugador = (Jugador)jugadores[turno];
+            if (!jugador.bloqueado && !jugador.muerto)
+            {
+                if (jugador.actual.NroCasillero + dado < 100)
+                {
+                    int actual = jugador.actual.NroCasillero;
+                    Casillero cas = casilleros[actual - 1 + dado];
+                    if (animacionMover)
+                    {
+                        for (int i = 1; i <= dado; i++)
+                        {
+                            cas = casilleros[actual - 1 + i];
+                            jugador.Mover(cas);
+                            if (!esSimulacion) Draw();
+                        }
+                    }
+                    else
+                    {
+                        jugador.Mover(cas);
+                    }
+                } else
+                {
+                    jugador.Mover(casilleros[99]);
+                    jugador.Ganador = true;
+                    ganador = true;
+                    jugador.PartidosGanados++;
+                }
+            }
+            int casFinal = jugadores[turno].actual.NroCasillero;
+            AñadirRegistro(jugador.nombre, dado, casInicial, casFinal);
+        }
+        
         public virtual void Draw()
         {
             if (animacionMover) Thread.Sleep(animacionDelay);
@@ -174,9 +197,27 @@ namespace EscalerasYSerpientes
             }
             
         }
+        public abstract void Jugar();
 
-        public abstract void SimularJuego();
-        public abstract void SimularRonda(int girosDelDado, Panel[] panelesDeDados);
-
+        public void SimularJuego()
+        {
+            while (!ganador)            // mientras no tengamos ganador, simular
+            {
+                SimularRonda();
+            }
+            if (esSimulacion) Draw();
+        }
+        public void SimularRonda()
+        {
+            int i = 0;
+            AñadirSeparador();
+            ronda++;
+            while (i < jugadores.Length && !ganador)
+            {
+                turno = i;
+                Jugar();
+                i++;
+            }
+        }
     }
 }

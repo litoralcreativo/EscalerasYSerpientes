@@ -9,7 +9,7 @@ namespace EscalerasYSerpientes
 {
     public class Nivel1 : Tablero
     {
-        protected int seises = 0;
+        protected int seises;
         protected int casInicial;
         protected int casFinal;
         public Nivel1(int width, int height, int jugadores) : base(width, height, jugadores)

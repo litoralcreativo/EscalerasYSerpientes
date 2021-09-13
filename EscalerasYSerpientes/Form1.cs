@@ -50,7 +50,7 @@ namespace EscalerasYSerpientes
                 
                 jugadores[i] = new Jugador("COM "+i.ToString(), 10, 10 * i, dados[i]); ;
                 jugadores[i].SetMainColor(Color.Red);
-                jugadores[i].SetSecond(Color.DarkRed);
+                jugadores[i].SetSecondColor(Color.DarkRed);
             }
             Reset();
         }

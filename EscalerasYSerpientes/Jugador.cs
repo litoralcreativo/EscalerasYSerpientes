@@ -11,7 +11,6 @@ namespace EscalerasYSerpientes
     public class Jugador : IDibujable
     {
         public string nombre;
-        Color color;
         public Casillero anterior;
         public Casillero actual;
         public Casillero siguiente;
@@ -24,18 +23,9 @@ namespace EscalerasYSerpientes
         public bool muerto = false;
         public Panel panelDado;
 
-        public Jugador(string nombre, int offsetX, int offsetY)
-        {
-            this.nombre = nombre;
-            color = Color.Blue;
-            offset = new Point(offsetX, offsetY);
-            main = Color.CadetBlue;
-            second = Color.Blue;
-        }
         public Jugador(string nombre, int offsetX, int offsetY, Panel dado)
         {
             this.nombre = nombre;
-            color = Color.Blue;
             offset = new Point(offsetX, offsetY);
             main = Color.CadetBlue;
             second = Color.Blue;
@@ -54,7 +44,7 @@ namespace EscalerasYSerpientes
         {
             main = col;
         }
-        public void SetSecond(Color col)
+        public void SetSecondColor(Color col)
         {
             second = col;
         }

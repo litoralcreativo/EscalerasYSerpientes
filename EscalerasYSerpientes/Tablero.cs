@@ -15,8 +15,8 @@ namespace EscalerasYSerpientes
     {
         public Casillero [] casilleros = new Casillero[100];
         public ArrayList entidades = new ArrayList();
-        public Graphics graficos;
         public Jugador[] jugadores;
+        public Graphics graficos;
         public ArrayList registro = new ArrayList();
         public int turno;
         public int dado;
@@ -181,7 +181,6 @@ namespace EscalerasYSerpientes
             int casFinal = jugadores[turno].actual.NroCasillero;
             AñadirRegistro(jugador.nombre, dado, casInicial, casFinal);
         }
-        
         public virtual void Draw()
         {
             if (animacionMover) Thread.Sleep(animacionDelay);
@@ -197,6 +196,7 @@ namespace EscalerasYSerpientes
             }
             
         }
+        
         public abstract void Jugar();
 
         public void SimularJuego()

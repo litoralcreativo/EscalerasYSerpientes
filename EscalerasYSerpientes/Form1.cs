@@ -90,7 +90,7 @@ namespace EscalerasYSerpientes
                     tablero = new Nivel2(600, 600, virtuales);
                     break;
                 case 3:
-                    tablero = new Nivel2(600, 600, virtuales);
+                    tablero = new Nivel3(600, 600, virtuales);
                     break;
 
             }

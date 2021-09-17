@@ -113,7 +113,7 @@ namespace EscalerasYSerpientes
             }
         }
         
-        public bool CheckCasillero()
+        public virtual bool CheckCasillero()
         {
             Jugador jugador = jugadores[turno];
             if (jugador.actual.EsInicio)

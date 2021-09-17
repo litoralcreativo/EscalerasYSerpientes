@@ -100,7 +100,12 @@ namespace EscalerasYSerpientes
             string log = String.Format("Turno: {0} - Dado: {1} - Casilleros: {2:D2} al {3:D2} - Seises: {4}", nombre, dado, casilleroInicial, casilleroFinal, seises);
             registro.Add(log);
         }
-        
+        protected void AñadirRegistro(string nombre, string estado)
+        {
+            string log = String.Format("Turno: {0} - Estado: {1}", nombre, estado);
+            registro.Add(log);
+        }
+
         public void Roll()
         {
             if (animacionMover)

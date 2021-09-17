@@ -22,6 +22,8 @@ namespace EscalerasYSerpientes
         public bool bloqueado = false;
         public bool muerto = false;
         public Panel panelDado;
+        public int turnosAPerder = 0;
+        public int picadurasVenenosas = 0;
 
         public Jugador(string nombre, int offsetX, int offsetY, Panel dado)
         {

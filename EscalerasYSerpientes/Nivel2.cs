@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,8 @@ namespace EscalerasYSerpientes
 {
     class Nivel2 : Nivel1
     {
+        protected ArrayList entidades = new ArrayList();
+
         public Nivel2(int width, int height, int jugadores) : base(width, height, jugadores)
         {
             CrearEntidades(random.Next(5, 10), random.Next(5, 8));
@@ -28,6 +31,7 @@ namespace EscalerasYSerpientes
                     altura = random.Next(3, 13);
                     finIndex = inicioIndex + altura;
                 }
+
                 Casillero inicio = casilleros[inicioIndex];
                 inicio.TieneElemento = true;
                 Casillero fin = casilleros[finIndex];
@@ -107,9 +111,9 @@ namespace EscalerasYSerpientes
         public override void Draw()
         {
             base.Draw();
-            foreach (object elemento in entidades)
+            foreach (IDibujable elemento in entidades)
             {
-                ((Entidad)elemento).Draw(graficos);
+                elemento.Draw(graficos);
             }
         }
         

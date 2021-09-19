@@ -14,7 +14,6 @@ namespace EscalerasYSerpientes
     public abstract class Tablero
     {
         public Casillero [] casilleros = new Casillero[100];
-        public ArrayList entidades = new ArrayList();
         public Jugador[] jugadores;
         public Graphics graficos;
         public ArrayList registro = new ArrayList();
@@ -190,14 +189,14 @@ namespace EscalerasYSerpientes
         {
             if (animacionMover) Thread.Sleep(animacionDelay);
             graficos.Clear(Color.White);
-            foreach (Jugador jugador in jugadores)
-            {
-                jugador.Draw(graficos);
-            }
             for (int i = 0; i < casilleros.Length; i++)
             {
                 Casillero cas = casilleros[i];
                 cas.Draw(graficos);
+            }
+            foreach (Jugador jugador in jugadores)
+            {
+                jugador.Draw(graficos);
             }
             
         }

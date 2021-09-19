@@ -16,5 +16,11 @@ namespace EscalerasYSerpientes
             base.colorCabeza = Color.PaleVioletRed;
             base.colorLinea = Color.MediumVioletRed;
         }
+
+        public void ReSpawn(Casillero caveza, Casillero cola)
+        {
+            base.inicio = caveza;
+            base.final = cola;
+        }
     }
 }

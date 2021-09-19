@@ -110,7 +110,7 @@ namespace EscalerasYSerpientes
                 btnSimular.Enabled = false;
                 btnMover.Enabled = true;
                 tablero.animacionMover = true;
-                tablero.animacionDelay = 100;
+                tablero.animacionDelay = 500;
                 tablero.esSimulacion = false;
             }
             else

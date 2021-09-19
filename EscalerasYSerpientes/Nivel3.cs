@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -56,6 +57,39 @@ namespace EscalerasYSerpientes
                             CheckDado();
                         }
                     }
+                }
+                RandomizarVenenosas();
+            }
+        }
+
+        private void RandomizarVenenosas()
+        {
+            for (int i = 0; i < entidades.Count; i++)
+            {
+                if (entidades[i] is Venenosa)
+                {
+                    Venenosa v = (Venenosa)entidades[i];
+                    
+                    // se habilitan nuevamente los casilleros
+                    v.inicio.TieneElemento = false;
+                    v.final.TieneElemento = false;
+                    v.inicio.entidad = null;
+                    v.inicio.EsInicio = false;
+
+                    int inicioIndex = random.Next(4, 95); // 19 a 98
+                    int finIndex = inicioIndex - 3;
+                    while (casilleros[inicioIndex].TieneElemento || casilleros[finIndex].TieneElemento)
+                    {
+                        inicioIndex = random.Next(19, 99);
+                        finIndex = inicioIndex - 3;
+                    }
+
+                    casilleros[inicioIndex].TieneElemento = true;
+                    casilleros[finIndex].TieneElemento = true;
+                    casilleros[inicioIndex].entidad = v;
+                    casilleros[inicioIndex].EsInicio = true;
+                    v.ReSpawn(casilleros[inicioIndex], casilleros[finIndex]);
+                    
                 }
             }
         }

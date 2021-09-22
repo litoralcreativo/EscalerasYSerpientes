@@ -122,6 +122,21 @@ namespace EscalerasYSerpientes
             Jugador jugador = jugadores[turno];
             if (jugador.actual.EsInicio)
             {
+                casInicial = jugador.actual.entidad.inicio.NroCasillero;
+                casFinal = jugador.actual.entidad.final.NroCasillero;
+                string tipoEntida = "";
+                if (jugador.actual.entidad is Escalera)
+                {
+                    tipoEntida = "Escalera =====";
+                }
+                else if (jugador.actual.entidad is Serpiente)
+                {
+                    tipoEntida = "Serpiente (°, ,°)";
+                }
+
+                AñadirRegistro(tipoEntida, " ", casInicial.ToString(), " al ", casFinal.ToString());
+                AñadirRegistro("");
+
                 jugador.Mover(jugador.actual.entidad.final);
                 if (!esSimulacion) Draw();
             }

@@ -56,6 +56,9 @@ namespace EscalerasYSerpientes
 
         public void AgregarJugador(Jugador jugador)
         {
+            jugador.picadurasVenenosas = 0;
+            jugador.muerto = false;
+            jugador.turnosAPerder = 0;
             bool asignado = false;
             int i = 0;
             while (i < jugadores.Length && !asignado)
@@ -82,6 +85,12 @@ namespace EscalerasYSerpientes
             registro.Add(""); // separador
             registro.Add("----------Ronda " + ronda + "----------"); // separador
         }
+        protected void AñadirRegistro(params string [] text)
+        {
+
+            registro.Add(string.Concat(text));
+        }
+
         protected void AñadirRegistro(string nombre, int dado, int casilleroInicial, int casilleroFinal, string entidad = "")
         {
             string log;
@@ -99,10 +108,18 @@ namespace EscalerasYSerpientes
             string log = String.Format("Turno: {0} - Dado: {1} - Casilleros: {2:D2} al {3:D2} - Seises: {4}", nombre, dado, casilleroInicial, casilleroFinal, seises);
             registro.Add(log);
         }
-        protected void AñadirRegistro(string nombre, string estado)
+        protected void AñadirRegistro(string nombre, string estado, int picaduras = 0)
         {
-            string log = String.Format("Turno: {0} - Estado: {1}", nombre, estado);
-            registro.Add(log);
+            if (picaduras == 0)
+            {
+                string log = String.Format("Turno: {0} - Estado: {1}", nombre, estado);
+                registro.Add(log);
+            } else
+            {
+                string log = String.Format("Turno: {0} - Estado: {1} - Picaduras: {2}", nombre, estado, picaduras);
+                registro.Add(log);
+            }
+
         }
 
         public void Roll()
@@ -163,12 +180,24 @@ namespace EscalerasYSerpientes
                     Casillero cas = casilleros[actual - 1 + dado];
                     if (animacionMover)
                     {
-                        for (int i = 1; i <= dado; i++)
+                        bool casilleroAcasillero = false;
+                        
+                        /* Si queremos que se mueva casillero por casillero */
+                        if (casilleroAcasillero)
                         {
-                            cas = casilleros[actual - 1 + i];
+                            for (int i = 1; i <= dado; i++)
+                            {
+                                cas = casilleros[actual - 1 + i];
+                                jugador.Mover(cas);
+                                if (!esSimulacion) Draw();
+                            }
+                        } 
+                        /*Si queremos que salte al casillero que le toco*/
+                        else
+                        {
                             jugador.Mover(cas);
-                            if (!esSimulacion) Draw();
                         }
+
                     }
                     else
                     {

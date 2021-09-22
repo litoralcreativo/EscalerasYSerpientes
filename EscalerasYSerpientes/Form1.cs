@@ -1,16 +1,6 @@
-﻿using EscalerasYSerpientes.Properties;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace EscalerasYSerpientes
@@ -32,6 +22,7 @@ namespace EscalerasYSerpientes
 
             g = panelGraficos.CreateGraphics();
             g.SmoothingMode = SmoothingMode.AntiAlias;
+            lbRegistro.DrawMode = DrawMode.OwnerDrawFixed; // para poder dibujar en el listBox con estilos
 
             FormElegirJugadores ej = new FormElegirJugadores();
             int virtuales = 1;
@@ -110,7 +101,7 @@ namespace EscalerasYSerpientes
                 btnSimular.Enabled = false;
                 btnMover.Enabled = true;
                 tablero.animacionMover = true;
-                tablero.animacionDelay = 500;
+                tablero.animacionDelay = 100;
                 tablero.esSimulacion = false;
             }
             else
@@ -131,7 +122,7 @@ namespace EscalerasYSerpientes
             tablero.SimularRonda();
             btnMover.Enabled = true;
             lbRegistro.Items.Clear();
-            foreach (object item in tablero.registro)
+            foreach (string item in tablero.registro)
             {
                 lbRegistro.Items.Add(item);
             }
@@ -141,6 +132,8 @@ namespace EscalerasYSerpientes
             if (tablero.jugadores.Length  == 4) lblGanados4.Text = ((Jugador)tablero.jugadores[3]).PartidosGanados.ToString();
             Draw();
         }
+
+
 
         private void btnSimular_Click(object sender, EventArgs e)
         {
@@ -155,6 +148,37 @@ namespace EscalerasYSerpientes
             if (tablero.jugadores.Length >= 3) lblGanados3.Text = ((Jugador)tablero.jugadores[2]).PartidosGanados.ToString();
             if(tablero.jugadores.Length == 4) lblGanados4.Text = ((Jugador)tablero.jugadores[3]).PartidosGanados.ToString();
             Draw();
+        }
+
+        private void lbRegistro_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            if (e.Index != -1)
+            {
+                e.DrawBackground();
+                Brush b = new SolidBrush(Color.Black);
+                string text = lbRegistro.Items[e.Index].ToString();
+                if (text.Length >= 4)
+                {
+                    string textStart = text.Substring(0, 4);
+                    switch (textStart)
+                    {
+                        case "Esca":
+                            b = new SolidBrush(Color.Green);
+                            break;
+                        case "Serp":
+                            b = new SolidBrush(Color.Red);
+                            break;
+                        case "Vene":
+                            b = new SolidBrush(Color.Purple);
+                            break;
+                        default:
+                            b = new SolidBrush(Color.Black);
+                            break;
+                    }
+                }
+                e.Graphics.DrawString(text, new Font(FontFamily.GenericMonospace, 10), b, e.Bounds);
+                e.DrawFocusRectangle();
+            }
         }
     }
 }

@@ -273,6 +273,7 @@ namespace EscalerasYSerpientes
             this.lbRegistro.Name = "lbRegistro";
             this.lbRegistro.Size = new System.Drawing.Size(467, 329);
             this.lbRegistro.TabIndex = 6;
+            this.lbRegistro.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lbRegistro_DrawItem);
             // 
             // btnSimular
             // 

@@ -103,6 +103,7 @@ namespace EscalerasYSerpientes
                 AñadirRegistro(jugadores[turno].nombre, "Turno perdido");
                 jugadores[turno].turnosAPerder--;
             }
+
             return turnosAPerder == 0;
         }
 
@@ -126,13 +127,20 @@ namespace EscalerasYSerpientes
                 {
                     jugador.turnosAPerder = 1;
                     jugador.picadurasVenenosas += 1;
+                    casInicial = jugador.actual.entidad.inicio.NroCasillero;
+                    casFinal = jugador.actual.entidad.final.NroCasillero;
+                    AñadirRegistro("Venenosa (x, ,x)", casInicial.ToString(), " al ", casFinal.ToString(), " - Picaduras: ", jugador.picadurasVenenosas.ToString());
+                    AñadirRegistro("");
                     if (jugador.picadurasVenenosas == 3)
                     {
                         jugador.muerto = true;
                     }
+                    jugador.Mover(jugador.actual.entidad.final);
+                    if (!esSimulacion) Draw();
+                } else
+                {
+                    base.CheckCasillero();
                 }
-                jugador.Mover(jugador.actual.entidad.final);
-                if (!esSimulacion) Draw();
             }
             return jugador.actual.EsInicio;
         }

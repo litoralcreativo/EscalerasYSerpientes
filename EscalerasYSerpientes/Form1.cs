@@ -48,151 +48,30 @@ namespace EscalerasYSerpientes
                     jugadores[i].SetSecondColor(Color.DarkRed);
                 }
                 Reset();
-            } else
+            } 
+            else
             {
                 Close();
             }
         }
 
-        private void Demo()
-        {
-            jugadores = new Jugador[2];
-            Panel[] dados = { panelDado1, panelDado2, panelDado3, panelDado4 };
-            Jugador humano = new Jugador("HUMAN", 10, 0, dados[0]);
-            jugadores[0] = humano;
-            jugadores[1] = new Jugador("COM 1", 10, 10, dados[1]); ;
-            jugadores[1].SetMainColor(Color.Red);
-            jugadores[1].SetSecondColor(Color.DarkRed);
-
-            btnSimular.Enabled = false;
-            btnReset.Enabled = false;
-            btnMover.Enabled = false;
-            btnDemo.Enabled = true;
-
-            // NIVEL 1
-            tablero = new Nivel1(600, 600, 2);
-            tablero.graficos = g;
-            tablero.AgregarJugador(jugadores[0]);
-            tablero.AgregarJugador(jugadores[1]);
-            tablero.Reset();
-            lbRegistro.Items.Clear();
-            
-        }
 
         private void panel1_Paint_1(object sender, PaintEventArgs e)
         {
             Draw();
         }
-
-        public void Draw()
-        {
-            tablero.Draw();
-        }
-
         private void btnReset_Click(object sender, EventArgs e)
         {
             Reset();
         }
-        
-        private void Reset()
-        {
-            int lvl = 1;
-            int virtuales = jugadores.Length;
-            bool simulacion = false;
-            FormElegirJuego nuevo = new FormElegirJuego();
-            if (nuevo.ShowDialog() == DialogResult.OK)
-            {
-                lvl = nuevo.juego;
-                simulacion = nuevo.cbSimulacion.Checked;
-            }
-            switch (lvl)
-            {
-                case 1:
-                    tablero = new Nivel1(600, 600, virtuales);
-                    break;
-                case 2:
-                    tablero = new Nivel2(600, 600, virtuales);
-                    break;
-                case 3:
-                    tablero = new Nivel3(600, 600, virtuales);
-                    break;
-
-            }
-            tablero.graficos = g;
-
-            for (int i = 0; i < jugadores.Length; i++)
-            {
-                tablero.AgregarJugador(jugadores[i]);
-            }
-            
-            tablero.Reset();
-            
-            lbRegistro.Items.Clear();
-            
-            if (!simulacion)
-            {
-                btnSimular.Enabled = false;
-                btnMover.Enabled = true;
-                tablero.animacionMover = true;
-                tablero.animacionDelay = 200;
-                tablero.esSimulacion = false;
-            }
-            else
-            {
-                btnSimular.Enabled = true;
-                btnMover.Enabled = false;
-                tablero.animacionMover = false;
-                tablero.animacionDelay = 0;
-                tablero.esSimulacion = true;
-            }
-            Draw();
-        }
-
         private void btnMover_Click(object sender, EventArgs e)
         {
             Mover();
-        }
-
-        private void Mover()
-        {
-            btnMover.Enabled = false;
-            Panel[] p = { panelDado1, panelDado2, panelDado3, panelDado4 };
-            tablero.SimularRonda();
-            btnMover.Enabled = true;
-            lbRegistro.Items.Clear();
-            foreach (string item in tablero.registro)
-            {
-                lbRegistro.Items.Add(item);
-            }
-            lbRegistro.PerformLayout();
-
-            lblGanados1.Text = ((Jugador)tablero.jugadores[0]).PartidosGanados.ToString();
-            lblGanados2.Text = ((Jugador)tablero.jugadores[1]).PartidosGanados.ToString();
-            if (tablero.jugadores.Length >= 3) lblGanados3.Text = ((Jugador)tablero.jugadores[2]).PartidosGanados.ToString();
-            if (tablero.jugadores.Length == 4) lblGanados4.Text = ((Jugador)tablero.jugadores[3]).PartidosGanados.ToString();
-            Draw();
-        }
-        private void Simular()
-        {
-            tablero.SimularJuego();
-            lbRegistro.Items.Clear();
-            foreach (object item in tablero.registro)
-            {
-                lbRegistro.Items.Add(item);
-            }
-            btnSimular.Enabled = false;
-            lbRegistro.Update();
-            lblGanados1.Text = ((Jugador)tablero.jugadores[0]).PartidosGanados.ToString();
-            lblGanados2.Text = ((Jugador)tablero.jugadores[1]).PartidosGanados.ToString();
-            if (tablero.jugadores.Length >= 3) lblGanados3.Text = ((Jugador)tablero.jugadores[2]).PartidosGanados.ToString();
-            if (tablero.jugadores.Length == 4) lblGanados4.Text = ((Jugador)tablero.jugadores[3]).PartidosGanados.ToString();
-            Draw();
         }
         private void btnSimular_Click(object sender, EventArgs e)
         {
             Simular();
         }
-
         private void lbRegistro_DrawItem(object sender, DrawItemEventArgs e)
         {
             if (e.Index != -1)
@@ -261,7 +140,6 @@ namespace EscalerasYSerpientes
                 e.DrawFocusRectangle();
             }
         }
-
         private void btnDemo_Click(object sender, EventArgs e)
         {
             // NIVEL 1
@@ -302,5 +180,124 @@ namespace EscalerasYSerpientes
 
             Simular();
         }
+
+
+        private void Demo()
+        {
+            jugadores = new Jugador[2];
+            Panel[] dados = { panelDado1, panelDado2, panelDado3, panelDado4 };
+            Jugador humano = new Jugador("HUMAN", 10, 0, dados[0]);
+            jugadores[0] = humano;
+            jugadores[1] = new Jugador("COM 1", 10, 10, dados[1]); ;
+            jugadores[1].SetMainColor(Color.Red);
+            jugadores[1].SetSecondColor(Color.DarkRed);
+
+            btnSimular.Enabled = false;
+            btnReset.Enabled = false;
+            btnMover.Enabled = false;
+            btnDemo.Enabled = true;
+
+            // NIVEL 1
+            tablero = new Nivel1(600, 600, 2);
+            tablero.graficos = g;
+            tablero.AgregarJugador(jugadores[0]);
+            tablero.AgregarJugador(jugadores[1]);
+            tablero.Reset();
+            lbRegistro.Items.Clear();
+            
+        }
+        public void Draw()
+        {
+            tablero.Draw();
+        }
+        private void Reset()
+        {
+            int lvl = 1;
+            int virtuales = jugadores.Length;
+            bool simulacion = false;
+            FormElegirJuego nuevo = new FormElegirJuego();
+            if (nuevo.ShowDialog() == DialogResult.OK)
+            {
+                lvl = nuevo.juego;
+                simulacion = nuevo.cbSimulacion.Checked;
+            }
+            switch (lvl)
+            {
+                case 1:
+                    tablero = new Nivel1(600, 600, virtuales);
+                    break;
+                case 2:
+                    tablero = new Nivel2(600, 600, virtuales);
+                    break;
+                case 3:
+                    tablero = new Nivel3(600, 600, virtuales);
+                    break;
+
+            }
+            tablero.graficos = g;
+
+            for (int i = 0; i < jugadores.Length; i++)
+            {
+                tablero.AgregarJugador(jugadores[i]);
+            }
+            
+            tablero.Reset();
+            
+            lbRegistro.Items.Clear();
+            
+            if (!simulacion)
+            {
+                btnSimular.Enabled = false;
+                btnMover.Enabled = true;
+                tablero.animacionMover = true;
+                tablero.animacionDelay = 200;
+                tablero.esSimulacion = false;
+            }
+            else
+            {
+                btnSimular.Enabled = true;
+                btnMover.Enabled = false;
+                tablero.animacionMover = false;
+                tablero.animacionDelay = 0;
+                tablero.esSimulacion = true;
+            }
+            Draw();
+        }
+        private void Mover()
+        {
+            btnMover.Enabled = false;
+            Panel[] p = { panelDado1, panelDado2, panelDado3, panelDado4 };
+            tablero.SimularRonda();
+            btnMover.Enabled = true;
+            lbRegistro.Items.Clear();
+            foreach (string item in tablero.registro)
+            {
+                lbRegistro.Items.Add(item);
+            }
+            lbRegistro.PerformLayout();
+
+            lblGanados1.Text = ((Jugador)tablero.jugadores[0]).PartidosGanados.ToString();
+            lblGanados2.Text = ((Jugador)tablero.jugadores[1]).PartidosGanados.ToString();
+            if (tablero.jugadores.Length >= 3) lblGanados3.Text = ((Jugador)tablero.jugadores[2]).PartidosGanados.ToString();
+            if (tablero.jugadores.Length == 4) lblGanados4.Text = ((Jugador)tablero.jugadores[3]).PartidosGanados.ToString();
+            Draw();
+        }
+        private void Simular()
+        {
+            tablero.SimularJuego();
+            lbRegistro.Items.Clear();
+            foreach (object item in tablero.registro)
+            {
+                lbRegistro.Items.Add(item);
+            }
+            btnSimular.Enabled = false;
+            lbRegistro.Update();
+            lblGanados1.Text = ((Jugador)tablero.jugadores[0]).PartidosGanados.ToString();
+            lblGanados2.Text = ((Jugador)tablero.jugadores[1]).PartidosGanados.ToString();
+            if (tablero.jugadores.Length >= 3) lblGanados3.Text = ((Jugador)tablero.jugadores[2]).PartidosGanados.ToString();
+            if (tablero.jugadores.Length == 4) lblGanados4.Text = ((Jugador)tablero.jugadores[3]).PartidosGanados.ToString();
+            Draw();
+        }
+
     }
 }

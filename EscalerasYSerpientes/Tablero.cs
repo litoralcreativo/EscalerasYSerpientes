@@ -180,7 +180,7 @@ namespace EscalerasYSerpientes
                     Casillero cas = casilleros[actual - 1 + dado];
                     if (animacionMover)
                     {
-                        bool casilleroAcasillero = false;
+                        bool casilleroAcasillero = true;
                         
                         /* Si queremos que se mueva casillero por casillero */
                         if (casilleroAcasillero)
@@ -227,7 +227,6 @@ namespace EscalerasYSerpientes
             {
                 jugador.Draw(graficos);
             }
-            
         }
         
         public abstract void Jugar();

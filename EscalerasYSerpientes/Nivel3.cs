@@ -16,7 +16,6 @@ namespace EscalerasYSerpientes
 
         public void CrearEntidadesEspeciales(int venenosas)
         {
-            
             for (int i = 0; i < venenosas; i++)
             {
                 int altura = 3;
@@ -78,7 +77,9 @@ namespace EscalerasYSerpientes
 
                     int inicioIndex = random.Next(4, 95); // 19 a 98
                     int finIndex = inicioIndex - 3;
-                    while (casilleros[inicioIndex].TieneElemento || casilleros[finIndex].TieneElemento)
+                    while (casilleros[inicioIndex].TieneElemento 
+                            || casilleros[finIndex].TieneElemento 
+                            || getJugadorEnCasillero(casilleros[inicioIndex]))
                     {
                         inicioIndex = random.Next(19, 99);
                         finIndex = inicioIndex - 3;
@@ -89,9 +90,18 @@ namespace EscalerasYSerpientes
                     casilleros[inicioIndex].entidad = v;
                     casilleros[inicioIndex].EsInicio = true;
                     v.ReSpawn(casilleros[inicioIndex], casilleros[finIndex]);
-                    
                 }
             }
+        }
+
+        private bool getJugadorEnCasillero (Casillero inicio)
+        {
+            bool jugadorEnCasillero = false;
+            for (int i = 0; i < jugadores.Length; i++)
+            {
+                if (jugadores[i].actual == inicio) jugadorEnCasillero = true;
+            }
+            return jugadorEnCasillero;
         }
 
         // si devolvemos true podemos continuar el juego, es decir el jugador no tiene turno perdido

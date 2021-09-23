@@ -44,7 +44,6 @@ namespace EscalerasYSerpientes
             Font font = new Font("Arial", 8);
             SolidBrush drawBrush = new SolidBrush(Color.Gray);
             PointF pf = new PointF(X, Y);
-            g.FillRectangle(new SolidBrush(TieneElemento? Color.LightGray : Color.White), X, Y, Size, Size);
             g.DrawRectangle(Pens.Black, X, Y, Size, Size);
             g.DrawString(NroCasillero.ToString(), font, drawBrush, pf);
         }

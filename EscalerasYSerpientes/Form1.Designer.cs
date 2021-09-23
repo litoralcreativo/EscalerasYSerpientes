@@ -53,6 +53,7 @@ namespace EscalerasYSerpientes
             this.label7 = new System.Windows.Forms.Label();
             this.lbRegistro = new System.Windows.Forms.ListBox();
             this.btnSimular = new System.Windows.Forms.Button();
+            this.btnDemo = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -286,6 +287,17 @@ namespace EscalerasYSerpientes
             this.btnSimular.UseVisualStyleBackColor = true;
             this.btnSimular.Click += new System.EventHandler(this.btnSimular_Click);
             // 
+            // btnDemo
+            // 
+            this.btnDemo.Enabled = false;
+            this.btnDemo.Location = new System.Drawing.Point(700, 585);
+            this.btnDemo.Name = "btnDemo";
+            this.btnDemo.Size = new System.Drawing.Size(305, 28);
+            this.btnDemo.TabIndex = 1;
+            this.btnDemo.Text = "DEMO";
+            this.btnDemo.UseVisualStyleBackColor = true;
+            this.btnDemo.Click += new System.EventHandler(this.btnDemo_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -295,6 +307,7 @@ namespace EscalerasYSerpientes
             this.Controls.Add(this.lbRegistro);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.btnDemo);
             this.Controls.Add(this.btnReset);
             this.Controls.Add(this.panelGraficos);
             this.DoubleBuffered = true;
@@ -334,6 +347,7 @@ namespace EscalerasYSerpientes
         private System.Windows.Forms.Label lblGanados2;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button btnDemo;
     }
 }
 

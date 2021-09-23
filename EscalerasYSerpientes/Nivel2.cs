@@ -17,7 +17,7 @@ namespace EscalerasYSerpientes
             CrearEntidades(random.Next(5, 10), random.Next(5, 8));
         }
 
-        public void CrearEntidades(int serpientes, int escaleras)
+        protected void CrearEntidades(int serpientes, int escaleras)
         {
             for (int i = 0; i < escaleras; i++)
             {
@@ -68,7 +68,7 @@ namespace EscalerasYSerpientes
             }
         }
 
-        public override void Jugar()
+        protected override void Jugar()
         {
             seises = 0;
             Roll();
@@ -82,7 +82,7 @@ namespace EscalerasYSerpientes
             }
         }
 
-        public override void CheckDado()
+        protected override void CheckDado()
         {
             Jugador jugador = jugadores[turno];
             if (dado == 6)
@@ -116,8 +116,8 @@ namespace EscalerasYSerpientes
                 elemento.Draw(graficos);
             }
         }
-        
-        public virtual bool CheckCasillero()
+
+        protected virtual bool CheckCasillero()
         {
             Jugador jugador = jugadores[turno];
             if (jugador.actual.EsInicio)

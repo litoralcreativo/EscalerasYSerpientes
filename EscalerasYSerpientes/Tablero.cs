@@ -122,7 +122,7 @@ namespace EscalerasYSerpientes
 
         }
 
-        public void Roll()
+        protected void Roll()
         {
             if (animacionMover)
             {
@@ -168,7 +168,7 @@ namespace EscalerasYSerpientes
             }
         }
         
-        public virtual void Mover()
+        protected virtual void Mover()
         {
             int casInicial = jugadores[turno].actual.NroCasillero;
             Jugador jugador = (Jugador)jugadores[turno];
@@ -229,7 +229,7 @@ namespace EscalerasYSerpientes
             }
         }
         
-        public abstract void Jugar();
+        protected abstract void Jugar();
 
         public void SimularJuego()
         {

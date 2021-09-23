@@ -14,7 +14,7 @@ namespace EscalerasYSerpientes
         public Casillero anterior;
         public Casillero actual;
         public Casillero siguiente;
-        public Point offset; // provisoria
+        private Point offset; // provisoria
         private Color main;
         private Color second;
         public bool Ganador { get; set; }

@@ -17,7 +17,7 @@ namespace EscalerasYSerpientes
 
         }
 
-        public override void Jugar()
+        protected override void Jugar()
         {
             seises = 0;
             Roll();
@@ -37,7 +37,7 @@ namespace EscalerasYSerpientes
             }
             return unlocked;
         }
-        public virtual void CheckDado()
+        protected virtual void CheckDado()
         {
             Jugador jugador = jugadores[turno];
             if (dado == 6)

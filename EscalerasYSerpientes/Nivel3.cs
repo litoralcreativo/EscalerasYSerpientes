@@ -14,7 +14,7 @@ namespace EscalerasYSerpientes
             CrearEntidadesEspeciales(3);
         }
 
-        public void CrearEntidadesEspeciales(int venenosas)
+        private void CrearEntidadesEspeciales(int venenosas)
         {
             for (int i = 0; i < venenosas; i++)
             {
@@ -40,7 +40,7 @@ namespace EscalerasYSerpientes
             }
         }
 
-        public override void Jugar()
+        protected override void Jugar()
         {
             if (!checkMuerto())
             {
@@ -128,7 +128,7 @@ namespace EscalerasYSerpientes
             return muerto;
         }
 
-        public override bool CheckCasillero()
+        protected override bool CheckCasillero()
         {
             Jugador jugador = jugadores[turno];
             if (jugador.actual.EsInicio)

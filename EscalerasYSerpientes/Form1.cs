@@ -156,26 +156,68 @@ namespace EscalerasYSerpientes
             {
                 e.DrawBackground();
                 Brush b = new SolidBrush(Color.Black);
+                Brush back = new SolidBrush(Color.White);
                 string text = lbRegistro.Items[e.Index].ToString();
-                if (text.Length >= 4)
+                bool selected = (e.State & DrawItemState.Selected) == DrawItemState.Selected;
+
+
+                // si esta seleccionado
+                if (selected)
                 {
-                    string textStart = text.Substring(0, 4);
-                    switch (textStart)
+                    if (text.Length >= 4)
                     {
-                        case "Esca":
-                            b = new SolidBrush(Color.Green);
-                            break;
-                        case "Serp":
-                            b = new SolidBrush(Color.Red);
-                            break;
-                        case "Vene":
-                            b = new SolidBrush(Color.Purple);
-                            break;
-                        default:
-                            b = new SolidBrush(Color.Black);
-                            break;
+                        string textStart = text.Substring(0, 4);
+                        switch (textStart)
+                        {
+                            case "Esca":
+                                back = new SolidBrush(Color.Green);
+                                b = new SolidBrush(Color.White);
+                                break;
+                            case "Serp":
+                                back = new SolidBrush(Color.Red);
+                                b = new SolidBrush(Color.White);
+                                break;
+                            case "Vene":
+                                back = new SolidBrush(Color.Purple);
+                                b = new SolidBrush(Color.White);
+                                break;
+                            default:
+                                back = new SolidBrush(Color.LightGray);
+                                b = new SolidBrush(Color.Black);
+                                break;
+                        }
+                    }
+                } else
+                {
+                    if (text.Length >= 4)
+                    {
+                        string textStart = text.Substring(0, 4);
+                        switch (textStart)
+                        {
+                            case "Esca":
+                                b = new SolidBrush(Color.Black);
+                                back = new SolidBrush(Color.LightGreen);
+                                break;
+                            case "Serp":
+                                b = new SolidBrush(Color.Black);
+                                back = new SolidBrush(Color.LightPink);
+                                break;
+                            case "Vene":
+                                b = new SolidBrush(Color.Black);
+                                back = new SolidBrush(Color.Plum);
+                                break;
+                            default:
+                                back = new SolidBrush(Color.White);
+                                b = new SolidBrush(Color.Black);
+                                break;
+                        }
                     }
                 }
+
+
+
+                
+                e.Graphics.FillRectangle(back, e.Bounds);
                 e.Graphics.DrawString(text, new Font(FontFamily.GenericMonospace, 10), b, e.Bounds);
                 e.DrawFocusRectangle();
             }

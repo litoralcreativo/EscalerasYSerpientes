@@ -129,7 +129,7 @@ namespace EscalerasYSerpientes
                     jugador.picadurasVenenosas += 1;
                     casInicial = jugador.actual.entidad.inicio.NroCasillero;
                     casFinal = jugador.actual.entidad.final.NroCasillero;
-                    AñadirRegistro("Venenosa (x, ,x)", casInicial.ToString(), " al ", casFinal.ToString(), " - Picaduras: ", jugador.picadurasVenenosas.ToString());
+                    AñadirRegistro("Venenosa (x, ,x) ", casInicial.ToString(), " al ", casFinal.ToString(), " - Picaduras: ", jugador.picadurasVenenosas.ToString());
                     AñadirRegistro("");
                     if (jugador.picadurasVenenosas == 3)
                     {
